@@ -6,19 +6,31 @@
 /*   By: moraouf <moraouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 18:58:36 by moraouf           #+#    #+#             */
-/*   Updated: 2025/11/26 19:37:25 by moraouf          ###   ########.fr       */
+/*   Updated: 2025/11/27 16:51:38 by moraouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <PhoneBook.hpp>
-# include <Contact.hpp>
+# include "PhoneBook.hpp"
+# include "Contact.hpp"
 
 
 int main()
 {
-    Phonebook Phonebook;
+    PhoneBook Book;
     std::string prompt;
-    
-    Phonebook.show_prompt();
-    
+    Book.show_prompt();
+
+    while(1)
+    {
+        std::getline(std::cin, prompt);
+        if (std::cin.eof())
+            break ;
+        if (prompt == "ADD")
+            Book.set_info();
+        else if (prompt == "SEARCH")
+            Book.get_info();
+        if (prompt == "EXIT")
+            break ;
+        Book.show_prompt();       
+    }
 }
