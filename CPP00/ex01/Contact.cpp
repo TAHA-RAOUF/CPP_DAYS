@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Contact.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moraouf <moraouf@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moraouf <moraouf@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 16:27:06 by moraouf           #+#    #+#             */
-/*   Updated: 2025/11/27 17:58:44 by moraouf          ###   ########.fr       */
+/*   Updated: 2025/12/17 21:51:03 by moraouf        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,18 @@ void Contact::get_contact_info(void)
         std::cout.width(10);
         std::cout << display_value;
     }
-    std::cout << " |" << std::endl;
+    std::cout << "|" << std::endl;
 }
 
-
-
-
-void Contact::set_contact_info(void)
+void Contact::display_full_contact(void)
 {
+    for (int i = 0; i < 5; i++)
+    {
+        std::cout << fields_name[i] << ": " << fields_value[i] << std::endl;
+    }
+}
+
+void Contact::set_contact_info(void) {
     for (int i = 0; i < 5; i++)
     {
         std::cout << "Enter " << fields_name[i] << ": ";

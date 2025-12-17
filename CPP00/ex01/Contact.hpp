@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Contact.hpp                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: moraouf <moraouf@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/17 21:53:10 by moraouf         #+#    #+#             */
+/*   Updated: 2025/12/17 21:53:11 by moraouf        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #ifndef CONTACT_HPP
 #define CONTACT_HPP
@@ -15,6 +27,7 @@ public:
     Contact(void);
     void set_contact_info(void);
     void get_contact_info(void);
+    void display_full_contact(void);
 };
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moraouf <moraouf@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moraouf <moraouf@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 18:58:36 by moraouf           #+#    #+#             */
-/*   Updated: 2025/11/27 16:51:38 by moraouf          ###   ########.fr       */
+/*   Updated: 2025/12/17 21:22:42 by moraouf        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,11 @@ int main()
         else if (prompt == "SEARCH")
             Book.get_info();
         if (prompt == "EXIT")
-            break ;
-        Book.show_prompt();       
+        {
+            std::cout << "Exiting PhoneBook. Goodbye!" << std::endl;
+            break;
+        }        
+        Book.show_prompt();
     }
 }
+
