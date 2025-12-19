@@ -57,7 +57,7 @@ void Contact::set_contact_info(void) {
             if(!std::cin)
             {
                 std::cout << "EOF detected. Exiting" << std::endl;
-                exit(0);
+                return;
             }
             if(this->fields_value[i].empty())
             {

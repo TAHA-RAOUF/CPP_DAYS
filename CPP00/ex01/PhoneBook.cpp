@@ -23,7 +23,7 @@ PhoneBook::PhoneBook(void)
 void PhoneBook::display_contacts(void)
 {
 	std::cout << "-------------------------------------------" << std::endl;
-	std::cout << "|  Index   |First Name| Last Name| Nickname |" << std::endl;
+	std::cout << "|     Index|First Name| Last Name|  Nickname|" << std::endl;
 	std::cout << "-------------------------------------------" << std::endl;
 	int max = this->full ? 8 : this->count;
 	for(int i = 0; i < max; i++)
