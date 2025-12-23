@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   HumanB.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moraouf <moraouf@student.42.fr>            +#+  +:+       +#+        */
+/*   By: taharaouf <taharaouf@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/23 18:27:59 by moraouf           #+#    #+#             */
-/*   Updated: 2025/12/23 18:47:35 by moraouf          ###   ########.fr       */
+/*   Updated: 2025/12/23 21:33:20 by taharaouf        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,5 @@ class HumanB
         HumanB( std::string name );
         
 };
-
 
 #endif

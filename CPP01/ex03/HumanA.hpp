@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*    HumanA.hpp                                        :+:      :+:    :+:   */
+/*   HumanA.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moraouf <moraouf@student.42.fr>            +#+  +:+       +#+        */
+/*   By: taharaouf <taharaouf@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/23 18:40:38 by moraouf           #+#    #+#             */
-/*   Updated: 2025/12/23 18:43:05 by moraouf          ###   ########.fr       */
+/*   Updated: 2025/12/23 21:33:04 by taharaouf        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,6 @@
 #include <iostream>
 #include "Weapon.hpp"
 
-
-
-
-
 class HumanA{
     private: 
         std::string name;
@@ -32,10 +28,6 @@ class HumanA{
         void attack() const;
         HumanA(std::string name, Weapon& weapGun);
 };
-
-
-
-
 
 
 
