@@ -6,14 +6,12 @@
 /*   By: moraouf <moraouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/24 15:50:03 by moraouf           #+#    #+#             */
-/*   Updated: 2025/12/24 17:23:04 by moraouf          ###   ########.fr       */
+/*   Updated: 2025/12/24 17:23:37 by moraouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <iostream>
 # include <fstream>
-
-
 
 
 int main(int ac, char **av)
