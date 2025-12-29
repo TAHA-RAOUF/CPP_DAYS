@@ -6,7 +6,7 @@
 /*   By: moraouf <moraouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 19:34:39 by moraouf           #+#    #+#             */
-/*   Updated: 2025/12/28 19:54:29 by moraouf          ###   ########.fr       */
+/*   Updated: 2025/12/29 14:49:32 by moraouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ ClapTrap::~ClapTrap()
 }
 void ClapTrap::attack(const std::string &target)
 {
-    if(this->energypoints <= 0 || this->hitpoints <= 0)
-        return;
     if (this->energypoints > 0 && this->hitpoints > 0)
     {
         this->energypoints--;

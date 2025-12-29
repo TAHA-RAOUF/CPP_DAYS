@@ -1,27 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moraouf <moraouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/28 19:13:55 by moraouf           #+#    #+#             */
-/*   Updated: 2025/12/29 14:48:40 by moraouf          ###   ########.fr       */
+/*   Created: 2025/12/29 14:56:13 by moraouf           #+#    #+#             */
+/*   Updated: 2025/12/29 16:24:21 by moraouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
+#ifndef SCAVTRAP_HPP
+#define SCAVTRAP_HPP
+
+
 
 #include "ClapTrap.hpp"
 
 
-int main()
+class ScavTrap : public ClapTrap
 {
-    ClapTrap ct1("Taha");
-    ClapTrap ct2("Mehdi");
+    public:
+        ScavTrap();
+        ScavTrap(const std::string& name);
+        ScavTrap(const ScavTrap& other);
+        ScavTrap& operator=(const ScavTrap& other);
+        ~ScavTrap();
+        void attack(const std::string& target);
+        void guardGate();
+};
 
-    ct1.attack("Mehdi");
-    ct2.takeDamage(5);
-    ct2.beRepaired(3);
-    ct2.attack("Taha");
-    ct1.takeDamage(7);
-    return 0;
-}
+
+
+
+
+#endif
