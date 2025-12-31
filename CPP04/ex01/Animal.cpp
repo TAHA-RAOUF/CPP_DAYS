@@ -6,7 +6,7 @@
 /*   By: moraouf <moraouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 17:26:20 by moraouf           #+#    #+#             */
-/*   Updated: 2025/12/30 17:37:18 by moraouf          ###   ########.fr       */
+/*   Updated: 2025/12/31 15:11:40 by moraouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,7 @@ Animal::~Animal()
 }
 Animal::Animal(const Animal& other)
 {
-    if(this != &other) {
-        this->type = other.type;
-    }
+    std::cout << "Animal Copy constructor called" << std::endl;
     *this = other;
 }
 Animal& Animal::operator=(const Animal& other)
