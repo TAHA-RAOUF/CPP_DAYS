@@ -6,25 +6,27 @@
 /*   By: moraouf <moraouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 16:31:43 by moraouf           #+#    #+#             */
-/*   Updated: 2025/12/29 16:32:12 by moraouf          ###   ########.fr       */
+/*   Updated: 2025/12/30 13:53:31 by moraouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FragTrap.hpp"
+#include "ScavTrap.hpp"
 
 
 
 int main()
 {
-    FragTrap ft1("Taha");
-    FragTrap ft2("Mehdi");
 
-    ft1.attack("Mehdi");
-    ft2.takeDamage(40);
-    ft2.beRepaired(25);
-    ft2.attack("Taha");
-    ft1.takeDamage(50);
-    ft1.highFivesGuys();
+    ScavTrap scav("SC4V");
+    FragTrap frag("FR4G");
+
+    scav.attack("enemy");
+    scav.guardGate();
+
+    frag.attack("enemy");
+    frag.highFivesGuys();
+
     return 0;
 }
 

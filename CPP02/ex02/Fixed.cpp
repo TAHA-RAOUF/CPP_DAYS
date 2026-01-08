@@ -6,7 +6,7 @@
 /*   By: moraouf <moraouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 22:59:06 by moraouf           #+#    #+#             */
-/*   Updated: 2025/12/27 23:05:54 by moraouf          ###   ########.fr       */
+/*   Updated: 2025/12/27 23:29:55 by moraouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,12 +139,15 @@ Fixed& Fixed::max(Fixed &a, Fixed &b)
 {
     return (a > b ? a : b);
 }
+
 const Fixed& Fixed::min(const Fixed &a, const Fixed &b)
 {
     return (a < b ? a : b);
 }
+
 const Fixed& Fixed::max(const Fixed &a, const Fixed &b)
 {
     return (a > b ? a : b);
 }
+
 
