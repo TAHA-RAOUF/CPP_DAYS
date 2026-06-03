@@ -28,6 +28,7 @@ Bureaucrat::Bureaucrat(const Bureaucrat &other)
     : name(other.name), grade(other.grade) {
   std::cout << "Bureaucrat copy constructor called" << std::endl;
 }
+
 Bureaucrat &Bureaucrat::operator=(const Bureaucrat &other) {
   std::cout << "Bureaucrat copy assignment operator called" << std::endl;
   if (this != &other) {
