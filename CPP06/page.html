@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C++ Module 06 - C++ Casts Guide & Presentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0e17;
+            --bg-secondary: #121824;
+            --bg-card: #1a2234;
+            --bg-code: #0d1117;
+            --accent-cyan: #00f2fe;
+            --accent-blue: #4facfe;
+            --accent-purple: #7f00ff;
+            --accent-pink: #e100ff;
+            --accent-green: #00e676;
+            --accent-orange: #ff9100;
+            --text-primary: #f0f4f8;
+            --text-secondary: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --font-main: 'Inter', system-ui, sans-serif;
+            --font-code: 'Fira Code', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphic Navbar */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(10, 14, 23, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.4rem;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+        }
+
+        nav a:hover, nav a.active {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 2px solid var(--accent-cyan);
+        }
+
+        /* Hero Banner */
+        .hero {
+            padding: 8rem 2rem 5rem;
+            text-align: center;
+            background: radial-gradient(circle at 50% 20%, rgba(79, 172, 254, 0.15) 0%, rgba(10, 14, 23, 0) 70%);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #ffffff 30%, var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 750px;
+            margin: 0 auto 2rem;
+        }
+
+        .badge-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        /* Layout Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        section {
+            margin-bottom: 5rem;
+            scroll-margin-top: 6rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #ffffff;
+            border-left: 4px solid var(--accent-cyan);
+            padding-left: 1rem;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        /* Theory Cards Grid */
+        .theory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.75rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 242, 254, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+        }
+
+        .card-static::before { background: var(--accent-blue); }
+        .card-dynamic::before { background: var(--accent-green); }
+        .card-const::before { background: var(--accent-orange); }
+        .card-reinterpret::before { background: var(--accent-pink); }
+
+        .card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+            color: #ffffff;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            margin-bottom: 0.75rem;
+        }
+
+        /* Exercise Section Layout */
+        .ex-container {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .ex-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .ex-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .ex-files {
+            font-family: var(--font-code);
+            font-size: 0.85rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            color: var(--accent-cyan);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Code Blocks */
+        pre {
+            background: var(--bg-code);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.25rem;
+            overflow-x: auto;
+            font-family: var(--font-code);
+            font-size: 0.88rem;
+            color: #e6edf3;
+            margin: 1rem 0;
+            line-height: 1.5;
+        }
+
+        code .keyword { color: #ff7b72; font-weight: 600; }
+        code .type { color: #79c0ff; }
+        code .string { color: #a5d6ff; }
+        code .comment { color: #8b949e; font-style: italic; }
+        code .function { color: #d2a8ff; }
+        code .number { color: #79c0ff; }
+
+        /* Interactive Console Demo */
+        .interactive-demo {
+            background: #000000;
+            border-radius: 10px;
+            border: 1px solid #333;
+            overflow: hidden;
+            margin-top: 1.5rem;
+        }
+
+        .demo-bar {
+            background: #1e1e1e;
+            padding: 0.6rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+
+        .demo-body {
+            padding: 1.5rem;
+            font-family: var(--font-code);
+        }
+
+        .input-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .input-group input {
+            flex: 1;
+            background: #161b22;
+            border: 1px solid #30363d;
+            color: #ffffff;
+            padding: 0.6rem 1rem;
+            border-radius: 6px;
+            font-family: var(--font-code);
+        }
+
+        .input-group button {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            color: #000;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            font-weight: 700;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .input-group button:hover {
+            opacity: 0.9;
+        }
+
+        .console-output {
+            color: #39ff14;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            min-height: 100px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 1rem;
+            border-radius: 6px;
+            border: 1px solid #222;
+        }
+
+        /* Comparison Table */
+        .table-wrapper {
+            overflow-x: auto;
+            margin-top: 1.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .highlight {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <span>⚡ 42 C++ Module 06</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#theory" class="active">Theory & Casts</a></li>
+                <li><a href="#ex00">Ex00: ScalarConverter</a></li>
+                <li><a href="#ex01">Ex01: Serializer</a></li>
+                <li><a href="#ex02">Ex02: Type Identifier</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <div class="badge-container">
+            <span class="badge">C++ Language</span>
+            <span class="badge">Typecasting Mastery</span>
+            <span class="badge">42 Network Subject</span>
+        </div>
+        <h1>Understanding C++ Casts</h1>
+        <p>A comprehensive walkthrough of the 4 C++ casting operators and detailed implementation guides for Module 06 exercises.</p>
+    </div>
+
+    <div class="container">
+
+        <!-- SECTION 1: THEORY -->
+        <section id="theory">
+            <h2 class="section-title">1. Theory: The 4 C++ Casts</h2>
+            <p class="subtitle">C++ introduced 4 specific casting operators to replace unsafe C-style implicit and explicit casts <code>(type)value</code>, making type conversions explicit, intentional, and checked at compile/run time.</p>
+
+            <div class="theory-grid">
+                <!-- Static Cast -->
+                <div class="card card-static">
+                    <span class="card-tag" style="background: rgba(79, 172, 254, 0.15); color: var(--accent-blue);">Compile-Time</span>
+                    <h3>static_cast</h3>
+                    <p>Handles standard implicit conversions between basic scalar types (e.g. <code>int</code> to <code>float</code>) and upward/downward class pointer conversions in known class hierarchies.</p>
+                    <pre><code><span class="type">double</span> d = <span class="number">42.42</span>;
+<span class="type">int</span> i = <span class="keyword">static_cast</span>&lt;<span class="type">int</span>&gt;(d);</code></pre>
+                </div>
+
+                <!-- Dynamic Cast -->
+                <div class="card card-dynamic">
+                    <span class="card-tag" style="background: rgba(0, 230, 118, 0.15); color: var(--accent-green);">Run-Time (RTTI)</span>
+                    <h3>dynamic_cast</h3>
+                    <p>Safely casts pointers/references along polymorphic inheritance hierarchies. Uses RTTI (Run-Time Type Information) and requires at least one virtual function.</p>
+                    <pre><code>Base* b = <span class="keyword">new</span> Derived();
+Derived* d = <span class="keyword">dynamic_cast</span>&lt;Derived*&gt;(b);
+<span class="comment">// Returns nullptr if invalid!</span></code></pre>
+                </div>
+
+                <!-- Const Cast -->
+                <div class="card card-const">
+                    <span class="card-tag" style="background: rgba(255, 145, 0, 0.15); color: var(--accent-orange);">Constness</span>
+                    <h3>const_cast</h3>
+                    <p>Adds or removes <code>const</code> or <code>volatile</code> qualifiers from a variable pointer or reference. Does not alter the underlying type memory representation.</p>
+                    <pre><code><span class="keyword">const</span> <span class="type">char</span>* str = <span class="string">"Hello"</span>;
+<span class="type">char</span>* p = <span class="keyword">const_cast</span>&lt;<span class="type">char</span>*&gt;(str);</code></pre>
+                </div>
+
+                <!-- Reinterpret Cast -->
+                <div class="card card-reinterpret">
+                    <span class="card-tag" style="background: rgba(225, 0, 255, 0.15); color: var(--accent-pink);">Bit Reinterpretation</span>
+                    <h3>reinterpret_cast</h3>
+                    <p>Low-level cast that reinterprets raw bit patterns (e.g., pointer to <code>uintptr_t</code> integer or unrelated struct pointer conversions). Highly dangerous if misused.</p>
+                    <pre><code>Data* data = <span class="keyword">new</span> Data();
+<span class="type">uintptr_t</span> raw = <span class="keyword">reinterpret_cast</span>&lt;<span class="type">uintptr_t</span>&gt;(data);</code></pre>
+                </div>
+            </div>
+
+            <!-- Cast Comparison Table -->
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cast Type</th>
+                            <th>When Checked?</th>
+                            <th>Primary Use Case</th>
+                            <th>Safety Level</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong class="highlight">static_cast</strong></td>
+                            <td>Compile-Time</td>
+                            <td>Primitive scalar conversions, upcasts & safe base-derived conversions</td>
+                            <td>Medium (Requires valid type relationships)</td>
+                        </tr>
+                        <tr>
+                            <td><strong class="highlight">dynamic_cast</strong></td>
+                            <td>Run-Time</td>
+                            <td>Safe downcasting in polymorphic trees (requires virtual destructor)</td>
+                            <td>Very High (Returns <code>nullptr</code> or throws exception)</td>
+                        </tr>
+                        <tr>
+                            <td><strong class="highlight">const_cast</strong></td>
+                            <td>Compile-Time</td>
+                            <td>Adding or casting away <code>const</code> modifier</td>
+                            <td>High (Dangerous if writing to original <code>const</code> data)</td>
+                        </tr>
+                        <tr>
+                            <td><strong class="highlight">reinterpret_cast</strong></td>
+                            <td>Compile-Time</td>
+                            <td>Pointer-to-integer, pointer-to-unrelated-pointer bit conversions</td>
+                            <td>Low (Raw memory bit interpretation)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SECTION 2: EX00 -->
+        <section id="ex00">
+            <div class="ex-container">
+                <div class="ex-header">
+                    <div>
+                        <h2 class="ex-title">Exercise 00: Conversion of Scalar Types</h2>
+                        <p style="color: var(--text-secondary); margin-top: 0.2rem;">Detect literal string types and convert across <code>char</code>, <code>int</code>, <code>float</code>, and <code>double</code>.</p>
+                    </div>
+                    <div class="ex-files">ex00/ | ScalarConverter.{hpp,cpp}</div>
+                </div>
+
+                <h3>Key Requirements & Solution Architecture</h3>
+                <ul style="margin-left: 1.5rem; color: var(--text-secondary); margin-bottom: 1rem;">
+                    <li>Pure static class (non-instantiable: private constructors and destructor).</li>
+                    <li>Single static method: <code>ScalarConverter::convert(const std::string& literal)</code>.</li>
+                    <li>Must handle pseudo-literals: <code>nan</code>, <code>nanf</code>, <code>+inf</code>, <code>-inf</code>, <code>+inff</code>, <code>-inff</code>.</li>
+                    <li>Print <i>"impossible"</i> if overflow/invalid, and <i>"Non displayable"</i> for non-printable chars.</li>
+                </ul>
+
+                <pre><code><span class="comment">// C++ Code snippet for ScalarConverter</span>
+<span class="keyword">class</span> <span class="type">ScalarConverter</span> {
+<span class="keyword">private</span>:
+    ScalarConverter(); <span class="comment">// Non-instantiable</span>
+<span class="keyword">public</span>:
+    <span class="keyword">static</span> <span class="type">void</span> <span class="function">convert</span>(<span class="keyword">const</span> std::string& literal);
+};</code></pre>
+
+                <!-- Interactive Demo -->
+                <div class="interactive-demo">
+                    <div class="demo-bar">
+                        <div class="dot dot-red"></div>
+                        <div class="dot dot-yellow"></div>
+                        <div class="dot dot-green"></div>
+                        <span style="color: #888; font-size: 0.8rem; margin-left: 0.5rem;">ScalarConverter Interactive Simulator</span>
+                    </div>
+                    <div class="demo-body">
+                        <div class="input-group">
+                            <input type="text" id="sim-input" value="42.0f" placeholder="Enter literal e.g. 'c', 42, 42.0f, nan, +inff">
+                            <button onclick="runScalarSim()">Simulate Convert</button>
+                        </div>
+                        <div class="console-output" id="sim-output">char: '*'
+int: 42
+float: 42.0f
+double: 42.0</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: EX01 -->
+        <section id="ex01">
+            <div class="ex-container">
+                <div class="ex-header">
+                    <div>
+                        <h2 class="ex-title">Exercise 01: Serialization</h2>
+                        <p style="color: var(--text-secondary); margin-top: 0.2rem;">Pointer-to-Integer Reinterpretation and Back.</p>
+                    </div>
+                    <div class="ex-files">ex01/ | Serializer.{hpp,cpp}, Data.hpp</div>
+                </div>
+
+                <h3>Key Concepts & Implementation</h3>
+                <p class="subtitle">Use <code>uintptr_t</code> (an unsigned integer type capable of holding a pointer) along with <code>reinterpret_cast</code> to turn a memory address into an integer and restore it without bit alteration.</p>
+
+                <pre><code><span class="keyword">struct</span> <span class="type">Data</span> {
+    std::string name;
+    <span class="type">int</span> value;
+};
+
+<span class="keyword">class</span> <span class="type">Serializer</span> {
+<span class="keyword">private</span>:
+    Serializer();
+<span class="keyword">public</span>:
+    <span class="keyword">static</span> <span class="type">uintptr_t</span> <span class="function">serialize</span>(Data* ptr) {
+        <span class="keyword">return</span> <span class="keyword">reinterpret_cast</span>&lt;<span class="type">uintptr_t</span>&gt;(ptr);
+    }
+    <span class="keyword">static</span> <span class="type">Data</span>* <span class="function">deserialize</span>(<span class="type">uintptr_t</span> raw) {
+        <span class="keyword">return</span> <span class="keyword">reinterpret_cast</span>&lt;Data*&gt;(raw);
+    }
+};</code></pre>
+            </div>
+        </section>
+
+        <!-- SECTION 4: EX02 -->
+        <section id="ex02">
+            <div class="ex-container">
+                <div class="ex-header">
+                    <div>
+                        <h2 class="ex-title">Exercise 02: Identify Real Type</h2>
+                        <p style="color: var(--text-secondary); margin-top: 0.2rem;">Polymorphic Real-Type Identification without <code>std::typeinfo</code>.</p>
+                    </div>
+                    <div class="ex-files">ex02/ | Base.{hpp,cpp}, A.hpp, B.hpp, C.hpp, main.cpp</div>
+                </div>
+
+                <h3>Key Concepts & Dynamic Casting Technique</h3>
+                <p class="subtitle">Since <code>std::typeinfo</code> (typeid) is forbidden, we use <code>dynamic_cast</code> to discover the underlying actual type (A, B, or C) of a polymorphic Base reference or pointer.</p>
+
+                <div class="theory-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 1.5rem;">
+                    <div>
+                        <h4 style="color: var(--accent-cyan); margin-bottom: 0.5rem;">1. Pointer Identification (Base* p)</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary);">When dynamic_cast fails on a pointer, it safely returns <code>nullptr</code>.</p>
+                        <pre><code><span class="type">void</span> <span class="function">identify</span>(Base* p) {
+    <span class="keyword">if</span> (<span class="keyword">dynamic_cast</span>&lt;A*&gt;(p)) std::cout &lt;&lt; <span class="string">"A\n"</span>;
+    <span class="keyword">else if</span> (<span class="keyword">dynamic_cast</span>&lt;B*&gt;(p)) std::cout &lt;&lt; <span class="string">"B\n"</span>;
+    <span class="keyword">else if</span> (<span class="keyword">dynamic_cast</span>&lt;C*&gt;(p)) std::cout &lt;&lt; <span class="string">"C\n"</span>;
+}</code></pre>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--accent-green); margin-bottom: 0.5rem;">2. Reference Identification (Base& p)</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary);">References cannot be null! Failed dynamic_cast on reference throws <code>std::bad_cast</code>.</p>
+                        <pre><code><span class="type">void</span> <span class="function">identify</span>(Base& p) {
+    <span class="keyword">try</span> {
+        (void)<span class="keyword">dynamic_cast</span>&lt;A&amp;&gt;(p);
+        std::cout &lt;&lt; <span class="string">"A\n"</span>; <span class="keyword">return</span>;
+    } <span class="keyword">catch</span> (...) {}
+    <span class="comment">// Repeat try-catch for B& and C&</span>
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>Created for 42 C++ Module 06 Subject Presentation & Explanation | Built with HTML5 & Vanilla CSS</p>
+    </footer>
+
+    <script>
+        function runScalarSim() {
+            const input = document.getElementById('sim-input').value.trim();
+            const output = document.getElementById('sim-output');
+
+            if (!input) {
+                output.textContent = "Error: empty input";
+                return;
+            }
+
+            // Pseudo literals
+            if (["nan", "nanf"].includes(input)) {
+                output.textContent = "char: impossible\nint: impossible\nfloat: nanf\ndouble: nan";
+                return;
+            }
+            if (["+inf", "+inff", "inf", "inff"].includes(input)) {
+                output.textContent = "char: impossible\nint: impossible\nfloat: +inff\ndouble: +inf";
+                return;
+            }
+            if (["-inf", "-inff"].includes(input)) {
+                output.textContent = "char: impossible\nint: impossible\nfloat: -inff\ndouble: -inf";
+                return;
+            }
+
+            // Single char check
+            if (input.length === 3 && input.startsWith("'") && input.endsWith("'")) {
+                const ch = input[1];
+                const code = ch.charCodeAt(0);
+                output.textContent = `char: '${ch}'\nint: ${code}\nfloat: ${code.toFixed(1)}f\ndouble: ${code.toFixed(1)}`;
+                return;
+            }
+
+            let numStr = input.endsWith('f') && input.length > 1 && !isNaN(parseFloat(input)) ? input.slice(0, -1) : input;
+            const val = Number(numStr);
+
+            if (isNaN(val)) {
+                output.textContent = "char: impossible\nint: impossible\nfloat: impossible\ndouble: impossible";
+                return;
+            }
+
+            let charRes = "";
+            if (val < 0 || val > 127) charRes = "impossible";
+            else if (val < 32 || val === 127) charRes = "Non displayable";
+            else charRes = `'${String.fromCharCode(val)}'`;
+
+            let intRes = (val < -2147483648 || val > 2147483647) ? "impossible" : Math.floor(val).toString();
+            let floatRes = val.toFixed(1) + "f";
+            let doubleRes = val.toFixed(1);
+
+            output.textContent = `char: ${charRes}\nint: ${intRes}\nfloat: ${floatRes}\ndouble: ${doubleRes}`;
+        }
+    </script>
+</body>
+</html>

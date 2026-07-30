@@ -5,7 +5,6 @@
 
 class ScalarConverter {
 private:
-    // Private constructors/destructor/assignment to prevent instantiation
     ScalarConverter();
     ScalarConverter(const ScalarConverter& other);
     ScalarConverter& operator=(const ScalarConverter& other);

@@ -66,7 +66,6 @@ void ScalarConverter::convert(const std::string& literal) {
         return;
     }
 
-    // 1. Check if char literal
     if (literal.length() == 1 && !std::isdigit(literal[0])) {
         char c = literal[0];
         std::cout << "char: ";
@@ -94,13 +93,11 @@ void ScalarConverter::convert(const std::string& literal) {
         return;
     }
 
-    // 2. Check pseudo literal
     if (isPseudoLiteral(literal)) {
         printPseudo(literal);
         return;
     }
 
-    // 3. Check for float suffix and parse double
     bool hasSuffixF = false;
     std::string parseStr = literal;
     if (parseStr.length() > 1 && (parseStr[parseStr.length() - 1] == 'f' || parseStr[parseStr.length() - 1] == 'F')) {
@@ -122,9 +119,7 @@ void ScalarConverter::convert(const std::string& literal) {
         return;
     }
 
-    // Determine type, convert from string to actual type, and cast explicitly.
     if (hasSuffixF) {
-        // Actual type: float
         float f = static_cast<float>(d_val);
 
         // char conversion
@@ -155,7 +150,7 @@ void ScalarConverter::convert(const std::string& literal) {
         formatAndPrintDouble(static_cast<double>(f));
 
     } else {
-        // We distinguish between INT and DOUBLE based on '.' or 'e'/'E' and int range
+        //compare
         bool isDouble = (literal.find('.') != std::string::npos ||
                          literal.find('e') != std::string::npos ||
                          literal.find('E') != std::string::npos);
@@ -163,7 +158,6 @@ void ScalarConverter::convert(const std::string& literal) {
         bool fitsInInt = (d_val >= std::numeric_limits<int>::min() && d_val <= std::numeric_limits<int>::max());
 
         if (!isDouble && fitsInInt) {
-            // Actual type: int
             int i = static_cast<int>(d_val);
 
             // char conversion
