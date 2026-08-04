@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPP Module 09 & Ford-Johnson Algorithm Explained</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-blue: #38bdf8;
+            --accent-purple: #c084fc;
+            --accent-green: #4ade80;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: linear-gradient(135deg, #1e1b4b, #311b92);
+            border-radius: 16px;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(to right, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        section {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--accent-blue);
+            margin-bottom: 1.2rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            color: var(--accent-purple);
+            margin: 1.5rem 0 0.8rem 0;
+        }
+
+        .exercise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .card {
+            background-color: rgba(15, 23, 42, 0.6);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .card h4 {
+            color: var(--accent-green);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-container {
+            margin: 1.5rem 0;
+        }
+
+        .step {
+            background-color: rgba(255, 255, 255, 0.03);
+            border-left: 4px solid var(--accent-blue);
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .step-title {
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            font-family: 'Fira Code', monospace;
+            background-color: #090d16;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            color: var(--accent-purple);
+        }
+
+        .diagram {
+            background-color: #090d16;
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-family: 'Fira Code', monospace;
+            white-space: pre;
+            overflow-x: auto;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            margin: 1rem 0;
+        }
+
+        .highlight {
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CPP Module 09 & PmergeMe Explained</h1>
+            <p class="subtitle">Complete guide, project architecture, and deep dive into the Ford-Johnson Algorithm</p>
+        </header>
+
+        <section id="overview">
+            <h2>1. CPP Module 09 Overview</h2>
+            <p>CPP Module 09 tests your ability to choose, implement, and analyze Standard Template Library (STL) algorithms and containers in C++98.</p>
+            
+            <div class="exercise-grid">
+                <div class="card">
+                    <h4>ex00: Bitcoin Exchange</h4>
+                    <p><strong>Container:</strong> <code>std::map&lt;std::string, float&gt;</code></p>
+                    <p>Reads exchange rate CSV data into a map and processes user queries, retrieving the rate for the exact date or the closest lower bound date.</p>
+                </div>
+                <div class="card">
+                    <h4>ex01: Reverse Polish Notation</h4>
+                    <p><strong>Container:</strong> <code>std::stack&lt;long&gt;</code></p>
+                    <p>Evaluates mathematical expressions written in postfix notation using stack operations (push operands, pop and compute on operators).</p>
+                </div>
+                <div class="card">
+                    <h4>ex02: PmergeMe</h4>
+                    <p><strong>Containers:</strong> <code>std::vector</code> & <code>std::deque</code></p>
+                    <p>Sorts positive integer sequences using the <strong>Ford-Johnson (Merge-Insertion) Algorithm</strong> and compares performance across containers.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="architecture">
+            <h2>2. Folder & Project Structure</h2>
+            <div class="diagram">
+CPP09/
+├── ex00/
+│   ├── main.cpp
+│   ├── BitcoinExchange.hpp
+│   ├── BitcoinExchange.cpp
+│   ├── Makefile
+│   └── data.csv
+├── ex01/
+│   ├── main.cpp
+│   ├── RPN.hpp
+│   ├── RPN.cpp
+│   └── Makefile
+├── ex02/
+│   ├── main.cpp
+│   ├── PmergeMe.hpp
+│   ├── PmergeMe.cpp
+│   └── Makefile
+└── index.html (This explanation page)
+            </div>
+        </section>
+
+        <section id="algorithm">
+            <h2>3. Ford-Johnson Algorithm (Merge-Insertion Sort)</h2>
+            <p>The Ford-Johnson algorithm minimizes the total number of comparisons required to sort $N$ elements by combining pairwise sorting, recursive sorting of larger elements, and binary insertion ordered by the <strong>Jacobsthal Sequence</strong>.</p>
+
+            <div class="step-container">
+                <div class="step">
+                    <div class="step-title">Step 1: Pairwise Comparison</div>
+                    <p>Group elements into pairs and sort each pair so that the larger element is first.</p>
+                    <div class="diagram">
+Input: [3, 5, 9, 7, 4]
+Pairs: (5, 3), (9, 7)  | Stray element: 4
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-title">Step 2: Recursive Sort of Main Chain</div>
+                    <p>Extract the larger elements from each pair to create the <em>Main Chain</em> and recursively sort them.</p>
+                    <div class="diagram">
+Main Chain: [5, 9] -> Recursive Sort -> [5, 9]
+Sorted Pairs: (5, 3), (9, 7)
+Pend: [3, 7]
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-title">Step 3: Jacobsthal Sequence Insertion</div>
+                    <p>The first pend element (b1 = 3) is placed at the front of the main chain. Subsequent elements from pend are inserted into main chain using binary search in Jacobsthal order (1, 3, 5, 11, 21, ...).</p>
+                    <div class="diagram">
+Initial result with b1: [3, 5, 9]
+Insert remaining pend (7) via Binary Search into [3, 5, 9] -> Inserted between 5 and 9
+Result so far: [3, 5, 7, 9]
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-title">Step 4: Stray Element Insertion</div>
+                    <p>If $N$ was odd, insert the un-paired stray element (4) using binary search.</p>
+                    <div class="diagram">
+Insert stray (4) into [3, 5, 7, 9] -> [3, 4, 5, 7, 9]
+Final Sorted Result: <span class="highlight">[3, 4, 5, 7, 9]</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="performance">
+            <h2>4. Why Use Jacobsthal Numbers?</h2>
+            <p>Jacobsthal numbers defined by $J_0 = 0, J_1 = 1, J_n = J_{n-1} + 2 J_{n-2}$ give the ideal group sizes for binary insertion. Inserting elements backward from the current Jacobsthal index guarantees that binary search bounds remain optimal ($2^k - 1$), minimizing comparisons!</p>
+        </section>
+
+        <footer>
+            <p>CPP Module 09 • 42 School Curriculum • Created with Antigravity AI</p>
+        </footer>
+    </div>
+</body>
+</html>
