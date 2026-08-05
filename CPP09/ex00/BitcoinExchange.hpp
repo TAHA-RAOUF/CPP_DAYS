@@ -7,6 +7,8 @@
 # include <string>
 # include <map>
 # include <cstdlib>
+# include <cerrno>
+# include <cmath>
 
 class BitcoinExchange {
 private:

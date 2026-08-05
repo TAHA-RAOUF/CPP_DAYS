@@ -58,10 +58,27 @@ bool BitcoinExchange::isValidDate(const std::string& date) const {
 }
 
 bool BitcoinExchange::isValidValue(const std::string& valStr, float& val) const {
+    if (valStr.empty())
+        return false;
+
+    
+    std::string lowerStr = valStr;
+    for (size_t i = 0; i < lowerStr.length(); ++i)
+        lowerStr[i] = static_cast<char>(std::tolower(lowerStr[i]));
+    // Reject nan, inf, +inf, -inf 
+    if (lowerStr.find("nan") != std::string::npos || lowerStr.find("inf") != std::string::npos)
+        return false;
+
+    errno = 0;
     char* endptr;
     val = std::strtof(valStr.c_str(), &endptr);
-    if (*endptr != '\0')
+
+    if (endptr == valStr.c_str() || *endptr != '\0')
         return false;
+
+    if (errno == ERANGE || std::isnan(val) || std::isinf(val))
+        return false;
+
     return true;
 }
 
@@ -75,12 +92,21 @@ bool BitcoinExchange::loadDatabase(const std::string& dbPath) {
     std::string line;
     std::getline(file, line); // header line
     while (std::getline(file, line)) {
+        if (trim(line).empty())
+            continue;
         size_t commaPos = line.find(',');
         if (commaPos == std::string::npos)
             continue;
         std::string date = trim(line.substr(0, commaPos));
         std::string rateStr = trim(line.substr(commaPos + 1));
-        float rate = std::atof(rateStr.c_str());
+
+        if (!isValidDate(date))
+            continue;
+
+        float rate;
+        if (!isValidValue(rateStr, rate) || rate < 0)
+            continue;
+
         _database[date] = rate;
     }
     file.close();
