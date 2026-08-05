@@ -63,7 +63,7 @@ void PmergeMe::sortVector(std::vector<int>& arr) {
         arr.pop_back();
     }
 
-    // 1. Group into pairs & sort pairs
+    // Group into pairs & sort pairs
     std::vector<std::pair<int, int> > pairs;
     for (size_t i = 0; i < arr.size(); i += 2) {
         if (arr[i] > arr[i + 1])
@@ -97,9 +97,7 @@ void PmergeMe::sortVector(std::vector<int>& arr) {
         }
     }
 
-    // Insert pend into mainChain using Jacobsthal order
     std::vector<int> result = sortedMainChain;
-    // Insert b1 first
     if (!pend.empty()) {
         result.insert(result.begin(), pend[0]);
     }
